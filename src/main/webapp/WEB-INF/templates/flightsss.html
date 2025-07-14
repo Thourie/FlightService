@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список перелётов</title>
+</head>
+<body>
+<h1>Список перелётов</h1>
+
+<!-- Если список пуст -->
+<div th:if="${flights == null or flights.isEmpty()}">
+    <p>Нет доступных перелётов.</p>
+</div>
+
+<!-- Если есть перелёты -->
+<ul th:unless="${flights == null or flights.isEmpty()}">
+    <li th:each="flight : ${flights}">
+        <a th:href="@{/tickets(flightId=${flight.id})}">
+            <span th:text="${flight.flightNo}"></span> |
+            <span th:text="${flight.departureAirportCode}"></span> →
+            <span th:text="${flight.arrivalAirportCode}"></span> |
+            Статус: <span th:text="${flight.status}"></span>
+        </a>
+    </li>
+</ul>
+
+<p><a href="/">На главную</a></p>
+</body>
+</html>
